@@ -199,7 +199,6 @@ private:
     bool status;            //статус заказа
 };
 
-
 //ф-я ввода строки
 void stringin(int maxlength, char* string, const char* message) {
     do {				//maxlenght-максимальная длина строки, string-входная строка, message-сообщение при ошибке
@@ -533,6 +532,31 @@ int order_complete(Order* orders, int orders_cntr, Product* products, int produc
     return 0;
 }
 
+void seller_fire(Seller* sellers, int* sellers_cntr, Seller **sellers_dismissed, int* sellers_dismissed_cntr) {
+    if (*sellers_cntr) {
+        class_out(sellers, *sellers_cntr);
+        int num;
+        puts("Введите номер продавца");
+        intin(&num, 1, *sellers_cntr, "номер продавца");
+
+        Seller *sellers_old = new Seller[*sellers_cntr];
+        for(int i = 0; i<*sellers_cntr ;i++)
+            (sellers_old+i)->SetSeller(*(sellers+i));
+
+        *sellers_dismissed = new Seller(*(sellers + num - 1));
+
+        for (int i = 0; i < num-1; i++)
+            *(sellers + i) = *(sellers_old + i);
+        for (int i = num; i < *sellers_cntr; i++)
+            *(sellers + i-1) = *(sellers_old + i);
+
+        delete[] sellers_old;
+        *sellers_cntr = *sellers_cntr - 1;
+        *sellers_dismissed_cntr = *sellers_dismissed_cntr + 1;
+    }
+    else puts("Нет продавцов");
+}
+
 //основная программа-меню, вызывающая различные функции
 int main()
 {
@@ -548,12 +572,13 @@ int main()
     Product products[10]; int products_cntr = 0;
     Order orders[10]; int orders_cntr = 0;
     Order* orders_complete = (Order*)malloc(sizeof(Order)); int orders_complete_cntr = 0;
+    Seller* sellers_dismissed = {new Seller}; int sellers_dismissed_cntr = 0;
 
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Выход");
         printf("Выберете дальнейшее действие: ");
-        intin(&selection, 1, 5, "вариант пункта меню");
+        intin(&selection, 1, 6, "вариант пункта меню");
 
         int exit1 = 1;
         switch (selection)
@@ -575,9 +600,9 @@ int main()
             break;
         case 2:
             do {
-                puts("1.Вывод производителя \n2.Вывод продавца\n3.Вывод покупателя\n4.Вывод товара\n5.Вывод заказа\n6.Вывод выполненных заказов\n7.Выход к прошлому меню");
+                puts("1.Вывод производителя \n2.Вывод продавца\n3.Вывод покупателя\n4.Вывод товара\n5.Вывод заказа\n6.Вывод выполненных заказов\n7.Вывод уволенных продавцов\n8.Выход к прошлому меню");
                 printf("Выберете дальнейшее действие: ");
-                intin(&selection, 1, 7, "вариант пункта меню");
+                intin(&selection, 1, 8, "вариант пункта меню");
                 switch (selection) {
                 case 1: class_out(producers, producers_cntr); break;
                 case 2: class_out(sellers, sellers_cntr); break;
@@ -585,13 +610,15 @@ int main()
                 case 4: class_out(products, products_cntr); break;
                 case 5: class_out(orders, orders_cntr); break;
                 case 6: class_out(orders_complete, orders_complete_cntr); break;
-                case 7: exit1 = 0; break;
+                case 7: class_out(sellers_dismissed, sellers_dismissed_cntr); break;
+                case 8: exit1 = 0; break;
                 }
             } while (exit1);
             break;
         case 3: order_sum(orders, orders_cntr); break;
         case 4: order_complete(orders, orders_cntr, products, products_cntr, &orders_complete, &orders_complete_cntr); break;
-        case 5: exit = 0; break;
+        case 5: seller_fire(sellers, &sellers_cntr, &sellers_dismissed, &sellers_dismissed_cntr); break;
+        case 6: exit = 0; break;
         }
     } while (exit);
 }
