@@ -543,7 +543,14 @@ void seller_fire(Seller* sellers, int* sellers_cntr, Seller **sellers_dismissed,
         for(int i = 0; i<*sellers_cntr ;i++)
             (sellers_old+i)->SetSeller(*(sellers+i));
 
-        *sellers_dismissed = new Seller(*(sellers + num - 1));
+        Seller *sellers_dismissed_old = new Seller[*sellers_dismissed_cntr];
+        for (int i=0; i<*sellers_dismissed_cntr ;i++)
+            (sellers_dismissed_old+i)->SetSeller(**(sellers_dismissed + i));
+
+        *sellers_dismissed_cntr = *sellers_dismissed_cntr + 1;
+        *sellers_dismissed = new Seller[*sellers_dismissed_cntr];
+        **sellers_dismissed = *sellers_dismissed_old;
+        *(*(sellers_dismissed) + *sellers_dismissed_cntr - 1) = *(sellers + num - 1);
 
         for (int i = 0; i < num-1; i++)
             *(sellers + i) = *(sellers_old + i);
@@ -552,7 +559,6 @@ void seller_fire(Seller* sellers, int* sellers_cntr, Seller **sellers_dismissed,
 
         delete[] sellers_old;
         *sellers_cntr = *sellers_cntr - 1;
-        *sellers_dismissed_cntr = *sellers_dismissed_cntr + 1;
     }
     else puts("Нет продавцов");
 }
