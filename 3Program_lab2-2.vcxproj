@@ -140,6 +140,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3Program_lab2-2.cpp" />
+    <ClCompile Include="Buyer.cpp" />
+    <ClCompile Include="Order.cpp" />
+    <ClCompile Include="Producer.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="Seller.cpp" />
+    <ClCompile Include="Input.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Buyer.h" />
+    <ClInclude Include="Human.h" />
+    <ClInclude Include="Order.h" />
+    <ClInclude Include="Producer.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Seller.h" />
+    <ClInclude Include="Input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
