@@ -28,7 +28,7 @@ public:
         printf("%-30s|%s\n", this->GetName(), this->GetPhone());
     }
     void InBuyer();
-    static int GetBuyer_cntr() { return buyers_cntr; }
+    static int& GetBuyer_cntr() { return buyers_cntr; }     //возвращение адреса статической переменной
     static void SetBuyer_cntr(int n) { buyers_cntr = n; }
 private:
     static int buyers_cntr;

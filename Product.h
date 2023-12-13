@@ -39,6 +39,8 @@ public:
     static void SetProducts_cntr(int n) { products_cntr = n; }
     static int GetProducts_cntr() { return products_cntr; }
     Product GetProduct() { return *this; }
+    Product operator ++(int) { quantity++; return *this; }     //постфиксный
+    Product& operator ++() { price++; return *this; }          //префексный
 private:
     char name_product[NAMELEN];     //Наименование товара
     int price;              //Цена товара

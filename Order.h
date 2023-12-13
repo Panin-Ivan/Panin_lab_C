@@ -10,6 +10,9 @@
 #include "Product.h"
 
 class Order : public Product, public Buyer, public Seller {
+    friend void Sale(Order* order, int percent) {		//Скидка на заказ
+        order->SetPrice((int)((double)(order->GetPrice()) * ((100.0 - (double)percent) / 100.0)));
+    }
 public:
     Order() {
         id = 0;

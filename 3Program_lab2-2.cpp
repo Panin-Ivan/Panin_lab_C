@@ -321,7 +321,7 @@ int main()
     setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    int selection, exit = 1;
+    int selection, exit = 1, salary_sum = 0;
     puts("Программа «Заказы»\n");
 
     Producer producers[10];
@@ -334,9 +334,9 @@ int main()
 
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Зарплата сотрудников\n8.Постфиксный и префексный\n9.Выход");
         printf("Выберете дальнейшее действие: ");
-        intin(&selection, 1, 6, "вариант пункта меню");
+        intin(&selection, 1, 9, "вариант пункта меню");
 
         int exit1 = 1;
         switch (selection)
@@ -419,7 +419,27 @@ int main()
             (orders + num - 1)->Sum(); break;
         case 4: order_complete(orders, products, &orders_complete, &orders_complete_cntr); break;
         case 5: seller_fire(sellers, &sellers_dismissed, &sellers_dismissed_cntr); break;
-        case 6: exit = 0; break;
+        case 6: class_out(orders);
+            puts("Введите номер заказа");
+            intin(&selection,1,orders->GetOrders_cntr(),"номер заказа");
+            puts("Введите скидку");
+            int per;
+            intin(&per, 0,100,"скидку");
+            Sale(&orders[selection-1], per);
+            break;
+        case 7: 
+            for (int i = 0; i < sellers->GetSellers_cntr();i++) {
+                salary_sum = sellers[i] + salary_sum;
+        }
+            printf("Сумма зарплат работников:%d\n", salary_sum);
+            break;
+        case 8: class_out(products); 
+            puts("Выберите номер товара");
+            intin(&selection, 1, products->GetProducts_cntr(),"номер товара");
+            products[selection - 1]++; ++products[selection - 1];
+            class_out(products);
+            break;
+        case 9: exit = 0; break;
         }
     } while (exit);
 }

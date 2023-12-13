@@ -2,7 +2,7 @@
 
 void Order::SetOrder(Order order) {
    SetBuyer(order.GetBuyer());
-   SetSeller(order.GetSeller());
+   SetSeller(*(order.GetSeller()));
    SetProduct(order.GetProduct());
    SetId(order.GetId());
    SetDate(order.GetDate());
