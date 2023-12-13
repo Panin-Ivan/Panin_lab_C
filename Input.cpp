@@ -1,12 +1,11 @@
 #include "Input.h"
-void stringin(int maxlength, char* string, const char* message) {
+void stringin(int maxlength, std::string string, const char* message) {
     do {				//maxlenght-максимальная длина строки, string-входная строка, message-сообщение при ошибке
-        fgets(string, maxlength, stdin);
-        if (strchr(string, '\n')) *strchr(string, '\n') = 0;
-        if (strlen(string) <= 0 || strlen(string) > (maxlength - 2))
+        getline(cin,string,'\n');
+        if (string.size() <= 0 || string.size() > (maxlength - 2))
             printf("Ошибка. Введите %s(до %d символов): ", message, (maxlength - 2));
         rewind(stdin);
-    } while (strlen(string) <= 0 || strlen(string) > (maxlength - 2));
+    } while (string.size() <= 0 || string.size() > (maxlength - 2));
 }
 void intin(int* value, int lower_limit, int upper_limit, const char* message) {
     int i = 0;		//value-входное значение, lower_limit-нижний предел, upper_limit-верхний предел ,message-сообщение об ошибке

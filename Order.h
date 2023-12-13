@@ -16,15 +16,15 @@ class Order : public Product, public Buyer, public Seller {
 public:
     Order() {
         id = 0;
-        strcpy(date, "10.10.2023");
+        date = "10.10.2023";
         quantity = 0;
         status = false;
     }
     void SetId(int id) {
         this->id = id;
     }
-    void SetDate(char* date) {
-        strcpy(this->date, date);
+    void SetDate(std::string date) {
+        this->date = date;
     }
     void SetQuantityOrder(int quantity) {
         this->quantity = quantity;
@@ -35,7 +35,7 @@ public:
     int GetId() {
         return id;
     }
-    char* GetDate() {
+    std::string GetDate() {
         return date;
     }
     int GetQuantityOrder() {
@@ -58,7 +58,7 @@ public:
     static void SetOrders_cntr(int n) { orders_cntr = n; }
 private:
     int id;                 //номер заказа
-    char date[DATELEN];     //дата заказа
+    std::string date;     //дата заказа
     int quantity;           //кол-во товара
     bool status;            //статус заказа
     static int orders_cntr;

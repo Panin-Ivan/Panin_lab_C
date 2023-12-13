@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <conio.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 #define NAMELEN 30
 #define PHONELEN 13
 
@@ -9,31 +8,30 @@
 class Human {
 public:
     Human() {
-        strcpy((this)->name, "name");
-        strcpy((this)->phone, "80000000000");
+        name="name";
+        phone="80000000000";
     }
-    Human(char* name) {
-        strcpy((this)->name, name);
-        strcpy((this)->phone, "80000000000");
+    Human(std::string name) {
+        this->name= name;
+        phone = "80000000000";
     }
-    Human(char* name, char* phone) {
-        strcpy((this)->name, name);
-        strcpy((this)->phone, phone);
+    Human(std::string name, std::string phone) {
+        this->name = name;
+        this->phone = phone;
     }
-    char* GetName() {
-        return this->name;
+    std::string GetName() {
+        return name;
     }
-    char* GetPhone() {
-        return this->phone;
+    std::string GetPhone() {
+        return phone;
     }
-    void SetName(char* new_name) {
-        strcpy(this->name, new_name);
+    void SetName(std::string new_name) {
+        name = new_name;
     }
-    void SetPhone(char* new_phone) {
-        strcpy(this->phone, new_phone);
+    void SetPhone(std::string new_phone) {
+        phone = new_phone;
     }
 private:
-    char name[NAMELEN];     //Имя
-    char phone[PHONELEN];   //Телефон
+    std::string name;       //Имя
+    std::string phone;      //Телефон
 };
-

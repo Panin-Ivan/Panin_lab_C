@@ -1,5 +1,49 @@
 ﻿  3Program_lab2-2.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Seller.h(4,10): fatal error C1083: Не удается открыть файл включение: format: No such file or directory,
+  Buyer.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.h(28,16): warning C4477: "printf": в строке форматирования "%-30s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.h(28,16): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(6,60): error C2664: "void stringin(int,char *,const char *)": невозможно преобразовать аргумент 2 из "std::string" в "char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(6,23): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Users\7007v\source\repos\3Program_lab2-2\Input.h(9,6): message : см. объявление "stringin"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(13,65): error C2664: "void stringin(int,char *,const char *)": невозможно преобразовать аргумент 2 из "std::string" в "char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(13,28): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Users\7007v\source\repos\3Program_lab2-2\Input.h(9,6): message : см. объявление "stringin"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(14,42): error C2664: "__int64 atoll(const char *)": невозможно преобразовать аргумент 1 из "std::string" в "const char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(14,36): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\stdlib.h(453,62): message : см. объявление "atoll"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(14,43): error C2664: "int sprintf(char *const ,const char *const ,...)": невозможно преобразовать аргумент 1 из "std::string" в "char *const "
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(14,17): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\stdio.h(1764,37): message : см. объявление "sprintf"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(16,24): error C2664: "size_t strlen(const char *)": невозможно преобразовать аргумент 1 из "std::string" в "const char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Buyer.cpp(16,21): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\string.h(215,16): message : см. объявление "strlen"
   Order.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Seller.h(4,10): fatal error C1083: Не удается открыть файл включение: format: No such file or directory,
+  Producer.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.h(27,16): warning C4477: "printf": в строке форматирования "%-30s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.h(27,16): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(5,66): error C2664: "void stringin(int,char *,const char *)": невозможно преобразовать аргумент 2 из "std::string" в "char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(5,23): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Users\7007v\source\repos\3Program_lab2-2\Input.h(9,6): message : см. объявление "stringin"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(12,65): error C2664: "void stringin(int,char *,const char *)": невозможно преобразовать аргумент 2 из "std::string" в "char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(12,28): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Users\7007v\source\repos\3Program_lab2-2\Input.h(9,6): message : см. объявление "stringin"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(13,42): error C2664: "__int64 atoll(const char *)": невозможно преобразовать аргумент 1 из "std::string" в "const char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(13,36): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\stdlib.h(453,62): message : см. объявление "atoll"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(13,43): error C2664: "int sprintf(char *const ,const char *const ,...)": невозможно преобразовать аргумент 1 из "std::string" в "char *const "
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(13,17): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\stdio.h(1764,37): message : см. объявление "sprintf"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(15,24): error C2664: "size_t strlen(const char *)": невозможно преобразовать аргумент 1 из "std::string" в "const char *"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.cpp(15,21): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\ucrt\string.h(215,16): message : см. объявление "strlen"
   Product.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.h(27,16): warning C4477: "printf": в строке форматирования "%-30s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Producer.h(27,16): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Product.h(35,16): warning C4477: "printf": в строке форматирования "%-30s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Product.h(35,16): warning C4477: "printf": в строке форматирования "%-30s" требуется аргумент типа "char *", но вариативный аргумент "4" имеет тип "std::string"
+C:\Users\7007v\source\repos\3Program_lab2-2\Product.h(35,16): warning C4477: "printf": в строке форматирования "%-21s" требуется аргумент типа "char *", но вариативный аргумент "5" имеет тип "std::string"
+  Seller.cpp
+C:\Users\7007v\source\repos\3Program_lab2-2\Seller.h(4,10): fatal error C1083: Не удается открыть файл включение: format: No such file or directory,
   Создание кода...
-  3Program_lab2-2.vcxproj -> C:\Users\7007v\source\repos\3Program_lab2-2\Debug\3Program_lab2-2.exe

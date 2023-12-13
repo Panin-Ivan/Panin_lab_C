@@ -2,14 +2,14 @@
     Seller::Seller() {
         salary = 0;
     }
-    Seller::Seller(char* name) {
-        this->SetName(name);
+    Seller::Seller(std::string name) {
+        SetName(name);
         salary = 0;
         sellers_cntr++;
     }
-    Seller::Seller(char* name, char* phone) {
-        this->SetName(name);
-        this->SetName(phone);
+    Seller::Seller(std::string name, std::string phone) {
+        SetName(name);
+        SetName(phone);
         salary = 0;
         sellers_cntr++;
     }
@@ -19,13 +19,13 @@
         salary = seller.GetSalary();
     }
     void Seller::InSeller(){
-        char string[50];
+        std::string string;
         puts("Введите имя продавца");
         stringin(NAMELEN, string, "имя продавца");
         SetName(string);
 
         printf("Введите номер телефона продавца(до %d символов): ", PHONELEN - 2);
-        int x = 0; char num[PHONELEN];
+        int x = 0; std::string num;
         do {
             if (x) printf("Введите номер: ");
             stringin(PHONELEN, string, "номер телефона");

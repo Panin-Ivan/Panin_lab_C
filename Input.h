@@ -1,7 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <conio.h>
-#include <string.h>
+#include <iostream>
+//#include <stdio.h>
+//#include <conio.h>
+#include <string>
+using namespace std;
 #pragma once
 //ф-я ввода строки
 void stringin(int maxlength, char* string, const char* message);

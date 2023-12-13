@@ -9,12 +9,12 @@ class Product : public Producer
 {
 public:
     Product() {
-        strcpy(name_product, "product_name");
+        name_product = "product_name";
         price = 0;
         quantity = 0;
     }
-    void SetNameProduct(char* name) {
-        strcpy(this->name_product, name);
+    void SetNameProduct(std::string name) {
+        name_product = name;
     }
     void SetPrice(int price) {
         this->price = price;
@@ -22,7 +22,7 @@ public:
     void SetQuantityProduct(int quantity) {
         this->quantity = quantity;
     }
-    char* GetNameProduct() {
+    std::string GetNameProduct() {
         return name_product;
     }
     int GetPrice() {
@@ -42,7 +42,7 @@ public:
     Product operator ++(int) { quantity++; return *this; }     //постфиксный
     Product& operator ++() { price++; return *this; }          //префексный
 private:
-    char name_product[NAMELEN];     //Наименование товара
+    std::string name_product;     //Наименование товара
     int price;              //Цена товара
     int quantity;           //кол-во товара на складе
     static int products_cntr;

@@ -1,12 +1,12 @@
 #include "Producer.h"
 void Producer::InProducer() {
-   char string[50];
+    std::string string;
     puts("Введите имя производителя");
     stringin(NAMELEN, string, "имя производителя");
     SetName(string);
 
     printf("Введите номер телефона производителя(до %d символов): ", PHONELEN - 2);
-    int x = 0; char num[PHONELEN];
+    int x = 0; std::string num;
     do {
         if (x) printf("Введите номер: ");
         stringin(PHONELEN, string, "номер телефона");

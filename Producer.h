@@ -10,11 +10,11 @@ class Producer : public Human
 {
 public:
     Producer() {}
-    Producer(char* name) {
+    Producer(std::string name) {
         this->SetName(name);
         producer_cntr++;
     }
-    Producer(char* name, char* phone) {
+    Producer(std::string name, std::string phone) {
         this->SetName(name);
         this->SetPhone(phone);
         producer_cntr++;

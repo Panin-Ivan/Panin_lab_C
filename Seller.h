@@ -1,6 +1,7 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
+#include <format>
 #include "Input.h"
 #include "Human.h"
 
@@ -8,8 +9,8 @@ class Seller : public Human
 {
 public:
     Seller();
-    Seller(char* name);
-    Seller(char* name, char* phone);
+    Seller(std::string name);
+    Seller(std::string name, std::string phone);
     void SetSalary(int salary) {
         this->salary = salary;
     }
@@ -23,7 +24,7 @@ public:
         sellers_cntr = n;
     }
     void OutSeller() {
-        printf("%-30s|%-14s|%-6d\n", this->GetName(), this->GetPhone(), this->GetSalary());
+        cout >> format("%-30s|%-14s|%-6d\n", this->GetName(), this->GetPhone(), this->GetSalary());
     }
     void SetSeller(Seller seller);
     void InSeller();

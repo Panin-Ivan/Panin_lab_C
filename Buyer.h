@@ -10,11 +10,11 @@ class Buyer : public Human
 {
 public:
     Buyer() {}
-    Buyer(char* name) {
-        this->SetName(name);
+    Buyer(std::string name) {
+        SetName(name);
         buyers_cntr++;
     }
-    Buyer(char* name, char* phone) {
+    Buyer(std::string name, std::string phone) {
         this->SetName(name);
         this->SetName(phone);
         buyers_cntr++;

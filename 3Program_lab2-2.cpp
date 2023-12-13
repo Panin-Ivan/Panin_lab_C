@@ -12,7 +12,7 @@
 #include "Product.h"
 #include "Order.h"
 #include "Input.h"
-
+#include <string.h>
 
 //ф-я вывода производителя                 
 void class_out(Producer* producers) {
