@@ -45,7 +45,7 @@ public:
         return status;
     }
     void OutOrder() {
-        printf("%-6d|%-10s|%-13d|%-d\n", id, date, quantity, status);
+        cout << "id:" << id << "  Дата:" << date << "  Кол-во:" << quantity << "  Статус:" << status <<endl;
     }
     void InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers);
     void SetOrder(Order order);

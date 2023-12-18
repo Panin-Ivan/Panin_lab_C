@@ -2,17 +2,16 @@
 void Producer::InProducer() {
     std::string string;
     puts("Введите имя производителя");
-    stringin(NAMELEN, string, "имя производителя");
+    stringin(NAMELEN, &string, "имя производителя");
     SetName(string);
 
     printf("Введите номер телефона производителя(до %d символов): ", PHONELEN - 2);
-    int x = 0; std::string num;
+    int x = 0;
     do {
         if (x) printf("Введите номер: ");
-        stringin(PHONELEN, string, "номер телефона");
-        sprintf(num, "%lld", atoll(string));
+        stringin(PHONELEN, &string, "номер телефона");
         x = 1;
-    } while (strlen(num) != 11);
+    } while (string.size() != 11);
     SetPhone(string);
     producer_cntr++;
 }

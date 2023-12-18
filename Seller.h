@@ -1,7 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
-#include <format>
 #include "Input.h"
 #include "Human.h"
 
@@ -24,7 +23,7 @@ public:
         sellers_cntr = n;
     }
     void OutSeller() {
-        cout >> format("%-30s|%-14s|%-6d\n", this->GetName(), this->GetPhone(), this->GetSalary());
+       cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << "  Зарплата:" << this->GetSalary() << endl;
     }
     void SetSeller(Seller seller);
     void InSeller();

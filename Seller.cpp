@@ -21,17 +21,16 @@
     void Seller::InSeller(){
         std::string string;
         puts("Введите имя продавца");
-        stringin(NAMELEN, string, "имя продавца");
+        stringin(NAMELEN, &string, "имя продавца");
         SetName(string);
 
         printf("Введите номер телефона продавца(до %d символов): ", PHONELEN - 2);
-        int x = 0; std::string num;
+        int x = 0; 
         do {
             if (x) printf("Введите номер: ");
-            stringin(PHONELEN, string, "номер телефона");
-            sprintf(num, "%lld", atoll(string));
+            stringin(PHONELEN, &string, "номер телефона");
             x = 1;
-        } while (strlen(num) != 11);
+        } while (string.size() != 11);
         SetPhone(string);
 
         int salary;

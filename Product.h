@@ -32,7 +32,7 @@ public:
         return quantity;
     }
     void OutProduct() {
-        printf("%-30s|%-10d|%-13d|%-30s|%-21s\n", this->GetNameProduct(), this->GetPrice(), this->GetQuantityProduct(), this->GetName(), this->GetPhone());
+        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantityProduct() << "  Производитель:" << GetName() << "  Телефон пр-ля:" << GetPhone() << endl;
     }
     void InProduct(Producer* producers);
     void SetProduct(Product product);
@@ -40,7 +40,7 @@ public:
     static int GetProducts_cntr() { return products_cntr; }
     Product GetProduct() { return *this; }
     Product operator ++(int) { quantity++; return *this; }     //постфиксный
-    Product& operator ++() { price++; return *this; }          //префексный
+    Product& operator ++() { price++; return *this; }          //префиксный
 private:
     std::string name_product;     //Наименование товара
     int price;              //Цена товара

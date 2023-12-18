@@ -19,6 +19,7 @@ public:
         this->name = name;
         this->phone = phone;
     }
+    ~Human(){}
     std::string GetName() {
         return name;
     }

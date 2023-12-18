@@ -25,7 +25,7 @@ public:
     }
     Buyer GetBuyer() { return *this; }
     void OutBuyer() {
-        printf("%-30s|%s\n", this->GetName(), this->GetPhone());
+        cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << endl;
     }
     void InBuyer();
     static int& GetBuyer_cntr() { return buyers_cntr; }     //возвращение адреса статической переменной

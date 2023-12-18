@@ -24,7 +24,7 @@ public:
         this->SetPhone(producer.GetPhone());
     }
     void OutProducer() {
-        printf("%-30s|%s\n", this->GetName(), this->GetPhone());
+        cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << endl;
     }
     void InProducer();
     static int GetProducer_cntr() { return producer_cntr; }

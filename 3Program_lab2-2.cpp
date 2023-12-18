@@ -16,8 +16,6 @@
 
 //ф-я вывода производителя                 
 void class_out(Producer* producers) {
-    printf("%-2s|%-30s|%s\n", "№", "Имя производителя", "Номер телефона");
-
     for (int i = 0; i < producers->GetProducer_cntr(); i++) {
         printf("%-2d|", i + 1);
         (producers + i)->OutProducer();
@@ -25,17 +23,13 @@ void class_out(Producer* producers) {
 }
 //ф-я вывода продавца
 void class_out(Seller* sellers) {
-    printf("%-2s|%-30s|%-14s|%s\n", "№", "Имя продавца", "Номер телефона", "Зарплата");
-
     for (int i = 0; i < sellers->GetSellers_cntr(); i++) {
         printf("%-2d|", i + 1);
-        (sellers+i)->OutSeller();
+        (sellers + i)->OutSeller();
     }
 }
 //ф-я вывода покупателя
 void class_out(Buyer* buyers) {
-    printf("%-2s|%-30s|%s\n", "№", "Имя покупателя", "Номер телефона");
-
     for (int i = 0; i < buyers->GetBuyer_cntr(); i++) {
         printf("%-2d|", i + 1);
         (buyers + i)->OutBuyer();
@@ -43,8 +37,6 @@ void class_out(Buyer* buyers) {
 }
 //ф-я вывода товара
 void class_out(Product* products) {
-    printf("%-2s|%-30s|%-10s|%-13s|%-30s|%-21s\n", "№", "Название", "Цена", "Кол-во товара", "Имя производителя", "Телефон производителя");
-
     for (int i = 0; i < products->GetProducts_cntr(); i++) {
         printf("%-2d|", i + 1); 
         (products+i)->OutProduct();
@@ -54,7 +46,6 @@ void class_out(Product* products) {
 void class_out(Order* orders) {
     if (orders->GetOrders_cntr()) {
         puts("Заказы");
-        printf("%-2s|%-6s|%-10s|%-13s|%-6s\n", "№", "id", "Дата", "Кол-во товара", "Статус");
         for (int i = 0; i < orders->GetOrders_cntr(); i++) {
             printf("%-2d|", i + 1);
             (orders + i)->OutOrder();
@@ -70,15 +61,12 @@ void class_out(Order* orders) {
                 i = i - 1;
 
                 puts("Товар данного заказа");
-                printf("%-30s|%-10s|%-13s|%-30s|%-21s\n", "Наименование товара", "Цена", "Кол-во товара", "Наименование производителя", "Телефон производителя");
                 (orders + i)->OutProduct();
 
                 puts("Покупатель данного заказа");
-                printf("%-30s|%-18s\n", "Имя покупателя", "Телефон покупателя");
                 (orders + i)->OutBuyer();
 
                 puts("Продавец данного заказа");
-                printf("%-30s|%-14s|%-s\n", "Имя продавца", "Телефон ", "Зарплата");
                 (orders + i)->OutSeller();
             }
         } while (select != 2);
@@ -87,10 +75,11 @@ void class_out(Order* orders) {
 }                                           
 
 void Product::InProduct(Producer* producers) {
-    char string[50]; int num;
+    std::string s = "";
+    std::string* str = &s ; int num;
     puts("Введите наименование товара");
-    stringin(NAMELEN, string, "наименование товара");
-    SetNameProduct(string);
+    stringin(NAMELEN, str, "наименование товара");
+    SetNameProduct(*str);
 
     puts("Введите цену");
     intin(&num, 0, 1000000, "цену");
@@ -110,7 +99,8 @@ void Product::InProduct(Producer* producers) {
 }
 
 void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers) {
-    char string[50]; int num;
+    std::string s = "";
+    std::string* str = &s; int num;
     puts("Введите id заказа");
     if (GetOrders_cntr() > 0) {
         int tr;
@@ -132,8 +122,8 @@ void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sel
     printf("Введите год: "); intin(&year, 1900, 3000, "год рождения");
     printf("Введите месяц: "); intin(&month, 1, 12, "месяц рождения");
     printf("Введите день: "); intin(&day, 1, 31, "день рождения");
-    sprintf(string, "%d.%d.%d", day, month, year);
-    SetDate(string);
+    *str = std::to_string(day) + "." + to_string(month) +"."+ to_string(year);
+    SetDate(*str);
 
     int select;
     class_out(products);
@@ -261,25 +251,28 @@ int order_complete(Order* orders, Product* products, Order **orders_complete, in
 
         (orders + num - 1)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct() - (orders + num - 1)->GetQuantityOrder());
         for (int i = 0; i < products->GetProducts_cntr(); i++) {
-            if (strcmp((products + i)->GetNameProduct(), (orders + num - 1)->GetNameProduct()) == 0)
+            if ((products + i)->GetNameProduct() == (orders + num - 1)->GetNameProduct())
                 (products + i)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct());
         }
 
         for (int i = 0; i < orders->GetOrders_cntr(); i++) {
-            if (strcmp((orders + i)->GetNameProduct(), (orders + num - 1)->GetNameProduct()) == 0)
+            if ((orders + i)->GetNameProduct() == (orders + num - 1)->GetNameProduct())
                 (orders + i)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct());
         }
+        
+        Order* order_old = new Order[*orders_complete_cntr];
+        for (int i = 0; i < *orders_complete_cntr; i++)
+            (order_old + i)->SetOrder(*(*(orders_complete) + i));
 
         *orders_complete_cntr = *orders_complete_cntr + 1;
-        Order* order_old;
-        order_old = *orders_complete;
+        *orders_complete = new Order[*orders_complete_cntr];
+        if (*orders_complete_cntr > 1) {
+            **orders_complete = *order_old;
+        }
 
-        *orders_complete =(Order*)malloc(*(orders_complete_cntr) * sizeof(Order));
-        **orders_complete = *order_old;
+        *(*(orders_complete)+ *(orders_complete_cntr) - 1) = *(orders + num - 1);
 
-        *(*(orders_complete)+*orders_complete_cntr - 1) = *(orders + num - 1);
-
-        free(order_old);
+        delete[] order_old;
     }
     return 0;
 }
@@ -297,12 +290,14 @@ void seller_fire(Seller* sellers, Seller **sellers_dismissed, int* sellers_dismi
 
         Seller *sellers_dismissed_old = new Seller[*sellers_dismissed_cntr];
         for (int i=0; i<*sellers_dismissed_cntr ;i++)
-            (sellers_dismissed_old+i)->SetSeller(**(sellers_dismissed + i));
+            (sellers_dismissed_old+i)->SetSeller(*(*(sellers_dismissed) + i));
 
         *sellers_dismissed_cntr = *sellers_dismissed_cntr + 1;
         *sellers_dismissed = new Seller[*sellers_dismissed_cntr];
-        **sellers_dismissed = *sellers_dismissed_old;
-        *(*(sellers_dismissed) + *sellers_dismissed_cntr - 1) = *(sellers + num - 1);
+        if (*sellers_dismissed_cntr >1) {
+            **sellers_dismissed = *sellers_dismissed_old;
+        }
+        *(*(sellers_dismissed) + *(sellers_dismissed_cntr) - 1) = *(sellers + num - 1);
 
         for (int i = 0; i < num-1; i++)
             *(sellers + i) = *(sellers_old + i);
@@ -329,7 +324,7 @@ int main()
     Buyer buyers[10];
     Product products[10];
     Order orders[10];
-    Order* orders_complete = (Order*)malloc(sizeof(Order)); int orders_complete_cntr = 0;
+    Order* orders_complete = {new Order}; int orders_complete_cntr = 0;
     Seller* sellers_dismissed = {new Seller}; int sellers_dismissed_cntr = 0;
 
 
@@ -369,8 +364,7 @@ int main()
                 case 5: class_out(orders); break;
                 case 6: //вывод выполненных заказов
                     if (orders_complete_cntr) {
-                        puts("Заказы");
-                        printf("%-2s|%-6s|%-10s|%-13s|%-6s\n", "№", "id", "Дата", "Кол-во товара", "Статус");
+                        puts("Заказы");                    
                         for (int i = 0; i < orders_complete_cntr; i++) {
                             printf("%-2d|", i + 1);
                             (orders_complete + i)->OutOrder();
@@ -385,24 +379,19 @@ int main()
                                 i = i - 1;
 
                                 puts("Товар данного заказа");
-                                printf("%-30s|%-10s|%-13s|%-30s|%-21s\n", "Наименование товара", "Цена", "Кол-во товара", "Наименование производителя", "Телефон производителя");
                                 (orders_complete + i)->OutProduct();
 
                                 puts("Покупатель данного заказа");
-                                printf("%-30s|%-18s\n", "Имя покупателя", "Телефон покупателя");
                                 (orders_complete + i)->OutBuyer();
 
                                 puts("Продавец данного заказа");
-                                printf("%-30s|%-14s|%-s\n", "Имя продавца", "Телефон ", "Зарплата");
                                 (orders_complete + i)->OutSeller();
                             }
                         } while (selection != 2);
                     }
                     else puts("Заказов нет");
                     break;
-                case 7: 
-                    printf("%-2s|%-30s|%-14s|%s\n", "№", "Имя продавца", "Номер телефона", "Зарплата");
-
+                case 7:           //вывод уволенных продавцов          
                     for (int i = 0; i < sellers_dismissed_cntr; i++) {
                         printf("%-2d|", i + 1);
                         (sellers_dismissed + i)->OutSeller();
