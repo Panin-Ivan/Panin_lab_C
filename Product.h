@@ -5,7 +5,7 @@
 #pragma once
 #include "Input.h"
 #include "Producer.h"
-class Product : public Producer
+class Product
 {
 public:
     Product() {
@@ -32,16 +32,22 @@ public:
         return quantity;
     }
     void OutProduct() {
-        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantityProduct() << "  Производитель:" << GetName() << "  Телефон пр-ля:" << GetPhone() << endl;
+        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantityProduct() << "  Производитель:" << this->producer.GetName() << "  Телефон пр-ля:" << this->producer.GetPhone() << endl;
     }
     void InProduct(Producer* producers);
     void SetProduct(Product product);
     static void SetProducts_cntr(int n) { products_cntr = n; }
     static int GetProducts_cntr() { return products_cntr; }
     Product GetProduct() { return *this; }
-    Product operator ++(int) { quantity++; return *this; }     //постфиксный
-    Product& operator ++() { price++; return *this; }          //префиксный
+    Product operator + (Product product) {
+        Product prod; prod.SetProduct(*this);
+        prod.SetQuantityProduct((this->GetQuantityProduct() + product.GetQuantityProduct()));
+        return prod;
+    }
+    Product operator ++(int) { return *this; quantity++;}       //постфиксный
+    Product& operator ++() { quantity++; return *this; }        //префиксный
 private:
+    Producer producer;
     std::string name_product;     //Наименование товара
     int price;              //Цена товара
     int quantity;           //кол-во товара на складе

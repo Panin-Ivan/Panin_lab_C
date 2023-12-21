@@ -93,29 +93,16 @@ void Product::InProduct(Producer* producers) {
     class_out(producers);
     puts("Введите номер производителя");
     intin(&select, 1, producers->GetProducer_cntr(), "номер производителя");
-    SetName((producers + select - 1)->GetName());
-    SetPhone((producers + select - 1)->GetPhone());
+    this->producer.SetName((producers + select - 1)->GetName());
+    this->producer.SetPhone((producers + select - 1)->GetPhone());
     products_cntr++;
 }
 
 void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers) {
     std::string s = "";
     std::string* str = &s; int num;
-    puts("Введите id заказа");
-    if (GetOrders_cntr() > 0) {
-        int tr;
-        do {
-            tr = 0;
-            intin(&num, 0, 999999, "id заказа");
-            for (int i = 0; i < GetOrders_cntr(); i++) {
-                if ((orders + i)->GetId() == num)
-                    tr = 1;
-            }
-            if (tr) puts("Такой id уже существует, ввведите другой");
-        } while (tr);
-    }
-    else intin(&num, 0, 999999, "id заказа");
-    SetId(num);
+
+    id = orders_cntr + 1;
 
     puts("Введите дату заказа");
     int year, month, day;
@@ -322,14 +309,14 @@ int main()
     Producer producers[10];
     Seller sellers[10];
     Buyer buyers[10];
-    Product products[10];
+    Product products[10]; Product prod;
     Order orders[10];
     Order* orders_complete = {new Order}; int orders_complete_cntr = 0;
     Seller* sellers_dismissed = {new Seller}; int sellers_dismissed_cntr = 0;
 
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Зарплата сотрудников\n8.Постфиксный и префексный\n9.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Кол-во товара\n8.Выход");
         printf("Выберете дальнейшее действие: ");
         intin(&selection, 1, 9, "вариант пункта меню");
 
@@ -409,26 +396,22 @@ int main()
         case 4: order_complete(orders, products, &orders_complete, &orders_complete_cntr); break;
         case 5: seller_fire(sellers, &sellers_dismissed, &sellers_dismissed_cntr); break;
         case 6: class_out(orders);
-            puts("Введите номер заказа");
-            intin(&selection,1,orders->GetOrders_cntr(),"номер заказа");
-            puts("Введите скидку");
-            int per;
-            intin(&per, 0,100,"скидку");
-            Sale(&orders[selection-1], per);
+            if (orders->GetOrders_cntr()) {
+                puts("Введите номер заказа");
+                intin(&selection, 1, orders->GetOrders_cntr(), "номер заказа");
+                puts("Введите скидку");
+                int per;
+                intin(&per, 0, 100, "скидку");
+                cout << "Цена товара со скидкой" << per << "% :" << Sale(&orders[selection - 1], per) << endl;
+            }
             break;
         case 7: 
-            for (int i = 0; i < sellers->GetSellers_cntr();i++) {
-                salary_sum = sellers[i] + salary_sum;
+            for (int i = 0; i < products->GetProducts_cntr();i++) {
+                prod = prod + products[i];
         }
-            printf("Сумма зарплат работников:%d\n", salary_sum);
+            printf("Кол-во товара:%d\n", prod.GetQuantityProduct());
             break;
-        case 8: class_out(products); 
-            puts("Выберите номер товара");
-            intin(&selection, 1, products->GetProducts_cntr(),"номер товара");
-            products[selection - 1]++; ++products[selection - 1];
-            class_out(products);
-            break;
-        case 9: exit = 0; break;
+        case 8: exit = 0; break;
         }
     } while (exit);
 }

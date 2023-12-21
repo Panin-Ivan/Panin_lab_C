@@ -28,9 +28,6 @@ public:
     void SetSeller(Seller seller);
     void InSeller();
     Seller* GetSeller() { return this; }    //возвращение указателя на объект
-    int operator + (int last_s) {
-        return (salary + last_s);
-    }
 private:
     int salary;             //Зарплата
     static int sellers_cntr;
