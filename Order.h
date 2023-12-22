@@ -47,7 +47,7 @@ public:
     void OutOrder() {
         cout << "id:" << id << "  Дата:" << date << "  Кол-во:" << quantity << "  Статус:" << status <<endl;
     }
-    void InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers);
+    void InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers, int sellers_cntr);
     void SetOrder(Order order);
     void Sum() {
         int sum;

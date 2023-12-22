@@ -1,22 +1,24 @@
 #include "Seller.h"
     Seller::Seller() {
         salary = 0;
+        seller_id = sellers_cntr;
     }
     Seller::Seller(std::string name) {
         SetName(name);
         salary = 0;
-        sellers_cntr++;
+        seller_id = sellers_cntr;
     }
     Seller::Seller(std::string name, std::string phone) {
         SetName(name);
         SetName(phone);
         salary = 0;
-        sellers_cntr++;
+        seller_id = sellers_cntr;
     }
     void Seller::SetSeller(Seller seller) {
         SetName(seller.GetName());
         SetPhone(seller.GetPhone());
         salary = seller.GetSalary();
+        seller_id = seller.seller_id;
     }
     void Seller::InSeller(){
         std::string string;
@@ -38,5 +40,7 @@
         intin(&salary, 0, 1000000, "зарплату продавца");
         SetSalary(salary);
         sellers_cntr++;
+        seller_id = sellers_cntr;
     }
+    int Seller::GetSellerId() { return seller_id; }
     int Seller::sellers_cntr = 0;

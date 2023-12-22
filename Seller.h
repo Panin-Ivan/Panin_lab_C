@@ -16,20 +16,15 @@ public:
     int GetSalary() {
         return salary;
     }
-    static int GetSellers_cntr() {
-        return sellers_cntr;
-    }
-    static void SetSellers_cntr(int n) {
-        sellers_cntr = n;
-    }
     void OutSeller() {
-       cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << "  Зарплата:" << this->GetSalary() << endl;
+       cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << "  Зарплата:" << this->GetSalary() << "  id:" << seller_id << endl;
     }
     void SetSeller(Seller seller);
     void InSeller();
     Seller* GetSeller() { return this; }    //возвращение указателя на объект
+    int GetSellerId();
 private:
     int salary;             //Зарплата
     static int sellers_cntr;
-
+    int seller_id;
 };

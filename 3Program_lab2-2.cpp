@@ -22,8 +22,8 @@ void class_out(Producer* producers) {
     }
 }
 //ф-я вывода продавца
-void class_out(Seller* sellers) {
-    for (int i = 0; i < sellers->GetSellers_cntr(); i++) {
+void class_out(Seller* sellers, int cntr) {
+    for (int i = 0; i < cntr; i++) {
         printf("%-2d|", i + 1);
         (sellers + i)->OutSeller();
     }
@@ -98,7 +98,7 @@ void Product::InProduct(Producer* producers) {
     products_cntr++;
 }
 
-void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers) {
+void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers, int sellers_cntr) {
     std::string s = "";
     std::string* str = &s; int num;
 
@@ -127,9 +127,9 @@ void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sel
     intin(&select, 1, buyers->GetBuyer_cntr(), "номер покупателя");
     SetBuyer(*(buyers + select - 1));
 
-    class_out(sellers);
+    class_out(sellers, sellers_cntr);
     puts("Введите номер продавца");
-    intin(&select, 1, sellers->GetSellers_cntr(), "номер продавца");
+    intin(&select, 1, sellers_cntr, "номер продавца");
     SetSeller(*(sellers + select - 1));
 
     SetStatus(false);
@@ -148,25 +148,26 @@ void producer_add(Producer* producers) {
     }
 }
 //ф-я ввода продавца
-void seller_add(Seller* sellers) {
-    if (sellers->GetSellers_cntr() >= 10)
+void seller_add(Seller* sellers, int* sellers_cntr) {
+    if (*sellers_cntr >= 10)
         printf("Достигнут лимит продавцов\n");
     else {
         Seller seller;
         seller.InSeller();
         
-        (sellers + (sellers->GetSellers_cntr())-1)->SetSeller(seller);
+        *sellers_cntr = *sellers_cntr + 1;
+        (sellers + *(sellers_cntr)-1)->SetSeller(seller);
     }
 }
 //ф-я ввода покупателя
-void buyer_add(Buyer* buyers) {
+void buyer_add(Buyer *buyers) {
     if (buyers->GetBuyer_cntr() >= 10)
         printf("Достигнут лимит покупателей\n");
     else {
         Buyer buyer;
         buyer.InBuyer();
 
-        (buyers + buyers->GetBuyer_cntr()-1)->SetBuyer(buyer);
+        (buyers + buyers->GetBuyer_cntr() - 1)->SetBuyer(buyer);
     }
 }
 //ф-я ввода товара
@@ -186,7 +187,7 @@ int product_add(Product* products, Producer* producers) {
     return 0;
 }
 //ф-я ввода заказа
-int order_add(Order* orders, Product* products, Buyer* buyers, Seller* sellers) {
+int order_add(Order* orders, Product* products, Buyer* buyers, Seller* sellers, int sellers_cntr) {
     if (orders->GetOrders_cntr() >= 10) {
         printf("Достигнут лимит заказов\n");
         return 1;
@@ -199,12 +200,12 @@ int order_add(Order* orders, Product* products, Buyer* buyers, Seller* sellers) 
         printf("Нет ни одного покупателя\n");
         return 3;
     }
-    if (sellers->GetSellers_cntr() == 0) {
+    if (sellers_cntr == 0) {
         printf("Нет ни одного продавца\n");
         return 4;
     }
     Order order;
-    order.InOrder(orders, products, buyers, sellers);
+    order.InOrder(orders, products, buyers, sellers, sellers_cntr);
 
     (orders + orders->GetOrders_cntr()-1)->SetOrder(order);
     return 0;
@@ -264,15 +265,15 @@ int order_complete(Order* orders, Product* products, Order **orders_complete, in
     return 0;
 }
 
-void seller_fire(Seller* sellers, Seller **sellers_dismissed, int* sellers_dismissed_cntr) {
-    if (sellers->GetSellers_cntr()) {
-        class_out(sellers);
+void seller_fire(Seller* sellers, int *sellers_cntr, Seller **sellers_dismissed, int* sellers_dismissed_cntr) {
+    if (*sellers_cntr) {
+        class_out(sellers, *sellers_cntr);
         int num;
         puts("Введите номер продавца");
-        intin(&num, 1, sellers->GetSellers_cntr(), "номер продавца");
+        intin(&num, 1, *sellers_cntr, "номер продавца");
 
-        Seller *sellers_old = new Seller[sellers->GetSellers_cntr()];
-        for(int i = 0; i< sellers->GetSellers_cntr();i++)
+        Seller *sellers_old = new Seller[*sellers_cntr];
+        for(int i = 0; i< *sellers_cntr;i++)
             (sellers_old+i)->SetSeller(*(sellers+i));
 
         Seller *sellers_dismissed_old = new Seller[*sellers_dismissed_cntr];
@@ -288,11 +289,11 @@ void seller_fire(Seller* sellers, Seller **sellers_dismissed, int* sellers_dismi
 
         for (int i = 0; i < num-1; i++)
             *(sellers + i) = *(sellers_old + i);
-        for (int i = num; i < sellers->GetSellers_cntr(); i++)
+        for (int i = num; i < *sellers_cntr; i++)
             *(sellers + i-1) = *(sellers_old + i);
 
         delete[] sellers_old;
-        sellers->SetSellers_cntr(sellers->GetSellers_cntr() - 1);
+        *sellers_cntr = *sellers_cntr - 1;;
     }
     else puts("Нет продавцов");
 }
@@ -303,24 +304,24 @@ int main()
     setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    int selection, exit = 1, salary_sum = 0;
+    int selection, exit = 1;
     puts("Программа «Заказы»\n");
 
     Producer producers[10];
-    Seller sellers[10];
-    Buyer buyers[10];
+    Seller sellers[10]; int sellers_cntr = 0;
+    Buyer buyers[2][5];
     Product products[10]; Product prod;
     Order orders[10];
-    Order* orders_complete = {new Order}; int orders_complete_cntr = 0;
-    Seller* sellers_dismissed = {new Seller}; int sellers_dismissed_cntr = 0;
+    Order* orders_complete = { new Order }; int orders_complete_cntr = 0;
+    Seller* sellers_dismissed = { new Seller }; int sellers_dismissed_cntr = 0;
 
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Кол-во товара\n8.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Выход");
         printf("Выберете дальнейшее действие: ");
         intin(&selection, 1, 9, "вариант пункта меню");
 
-        int exit1 = 1;
+        int exit1 = 1, salary_avg = 0;
         switch (selection)
         {
         case 1:
@@ -330,10 +331,10 @@ int main()
                 intin(&selection, 1, 6, "вариант пункта меню");
                 switch (selection) {
                 case 1: producer_add(producers); break;
-                case 2: seller_add(sellers); break;
-                case 3: buyer_add(buyers); break;
+                case 2: seller_add(sellers, &sellers_cntr); break;
+                case 3: buyer_add(&buyers[0][0]); break;
                 case 4: product_add(products, producers); break;
-                case 5: order_add(orders, products, buyers, sellers); break;
+                case 5: order_add(orders, products, &buyers[0][0], sellers, sellers_cntr); break;
                 case 6: exit1 = 0; break;
                 }
             } while (exit1);
@@ -341,17 +342,17 @@ int main()
         case 2:
             do {
                 puts("1.Вывод производителя \n2.Вывод продавца\n3.Вывод покупателя\n4.Вывод товара\n5.Вывод заказа\n6.Вывод выполненных заказов\n7.Вывод уволенных продавцов\n8.Выход к прошлому меню");
-                printf("Выберете дальнейшее действие: ");
+                printf("Выберите дальнейшее действие: ");
                 intin(&selection, 1, 8, "вариант пункта меню");
                 switch (selection) {
                 case 1: class_out(producers); break;
-                case 2: class_out(sellers); break;
-                case 3: class_out(buyers); break;
+                case 2: class_out(sellers, sellers_cntr); break;
+                case 3: class_out(&buyers[0][0]); break;
                 case 4: class_out(products); break;
                 case 5: class_out(orders); break;
                 case 6: //вывод выполненных заказов
                     if (orders_complete_cntr) {
-                        puts("Заказы");                    
+                        puts("Заказы");
                         for (int i = 0; i < orders_complete_cntr; i++) {
                             printf("%-2d|", i + 1);
                             (orders_complete + i)->OutOrder();
@@ -394,7 +395,7 @@ int main()
 
             (orders + num - 1)->Sum(); break;
         case 4: order_complete(orders, products, &orders_complete, &orders_complete_cntr); break;
-        case 5: seller_fire(sellers, &sellers_dismissed, &sellers_dismissed_cntr); break;
+        case 5: seller_fire(sellers, &sellers_cntr, &sellers_dismissed, &sellers_dismissed_cntr); break;
         case 6: class_out(orders);
             if (orders->GetOrders_cntr()) {
                 puts("Введите номер заказа");
@@ -402,16 +403,28 @@ int main()
                 puts("Введите скидку");
                 int per;
                 intin(&per, 0, 100, "скидку");
-                cout << "Цена товара со скидкой" << per << "% :" << Sale(&orders[selection - 1], per) << endl;
+                cout << "Цена товара со скидкой " << per << "% :" << Sale(&orders[selection - 1], per) << endl;
             }
+            else cout << "Нет заказов" << endl;
             break;
-        case 7: 
-            for (int i = 0; i < products->GetProducts_cntr();i++) {
+        case 7://средняя зп
+            for (int i = 0; i < sellers_cntr; i++) {
+                salary_avg = salary_avg + sellers[i].GetSalary();
+            }
+            try {
+                if (!sellers_cntr) throw 1;
+                salary_avg = salary_avg / sellers_cntr;
+                cout << "Средняя зарплата: " << salary_avg << endl;
+            }
+            catch (int) { cout << "Нет продавцов" << endl; }
+            break;
+        case 8:
+            for (int i = 0; i < products->GetProducts_cntr(); i++) {
                 prod = prod + products[i];
-        }
+            }
             printf("Кол-во товара:%d\n", prod.GetQuantityProduct());
             break;
-        case 8: exit = 0; break;
+        case 9: exit = 0; break;
         }
     } while (exit);
 }
