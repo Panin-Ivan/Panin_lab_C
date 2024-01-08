@@ -314,7 +314,7 @@ int main()
     Order orders[10];
     Order* orders_complete = { new Order }; int orders_complete_cntr = 0;
     Seller* sellers_dismissed = { new Seller }; int sellers_dismissed_cntr = 0;
-
+    
 
     do {
         puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Выход");

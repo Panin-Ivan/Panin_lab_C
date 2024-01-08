@@ -57,6 +57,9 @@ public:
     }
     static int GetOrders_cntr() { return orders_cntr; }
     static void SetOrders_cntr(int n) { orders_cntr = n; }
+    Order operator= (Product product) { this->SetProduct(product); return *this; }
+    Order operator= (Buyer buyer) { this->SetBuyer(buyer);  return *this; }
+    Order operator= (Seller seller) { this->SetSeller(seller);  return *this; }
 private:
     int id;                 //номер заказа
     std::string date;     //дата заказа

@@ -1,9 +1,9 @@
 #include "Order.h"
 
 void Order::SetOrder(Order order) {
-   SetBuyer(order.GetBuyer());
-   SetSeller(*(order.GetSeller()));
-   SetProduct(order.GetProduct());
+   *this = order.GetBuyer();
+   *this = *(order.GetSeller());
+   *this = order.GetProduct();
    SetId(order.GetId());
    SetDate(order.GetDate());
    SetQuantity(order.GetQuantity());

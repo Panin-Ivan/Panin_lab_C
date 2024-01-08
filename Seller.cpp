@@ -3,8 +3,7 @@
         salary = 0;
         seller_id = sellers_cntr;
     }
-    Seller::Seller(std::string name) {
-        SetName(name);
+    Seller::Seller(std::string name) : Human(name) {
         salary = 0;
         seller_id = sellers_cntr;
     }
