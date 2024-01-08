@@ -16,8 +16,8 @@ public:
     int GetSalary() {
         return salary;
     }
-    void OutSeller() {
-       cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << "  Зарплата:" << this->GetSalary() << "  id:" << seller_id << endl;
+    friend ostream& operator<<(ostream& out, Seller seller) {
+        return out << "Имя:" << seller.GetName() << "  Телефон:" << seller.GetPhone() << "  Зарплата:" << seller.GetSalary() << "  id:" << seller.GetSellerId() << endl;
     }
     void SetSeller(Seller seller);
     void InSeller();

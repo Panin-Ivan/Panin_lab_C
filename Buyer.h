@@ -24,8 +24,8 @@ public:
         this->SetPhone(buyer.GetPhone());
     }
     Buyer GetBuyer() { return *this; }
-    void OutBuyer() {
-        cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << endl;
+    friend ostream& operator<<(ostream& out, Buyer buyer) {
+        return out << "Имя:" << buyer.GetName() << "  Телефон:" << buyer.GetPhone() << endl;
     }
     void InBuyer();
     static int& GetBuyer_cntr() { return buyers_cntr; }     //возвращение адреса статической переменной

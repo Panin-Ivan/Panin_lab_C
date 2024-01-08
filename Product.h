@@ -31,8 +31,8 @@ public:
     int GetQuantity() {
         return quantity;
     }
-    void OutProduct() {
-        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantity() << "  Производитель:" << this->producer.GetName() << "  Телефон пр-ля:" << this->producer.GetPhone() << endl;
+    friend ostream& operator<<(ostream& out, Product product) {
+        return out << "Название:" << product.GetNameProduct() << "  Цена:" << product.GetPrice() << "  Кол-во:" << product.GetQuantity() << "  Производитель:" << product.producer.GetName() << "  Телефон пр-ля:" << product.producer.GetPhone() << endl;
     }
     void InProduct(Producer* producers);
     void SetProduct(Product product);

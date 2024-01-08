@@ -23,8 +23,8 @@ public:
         this->SetName(producer.GetName());
         this->SetPhone(producer.GetPhone());
     }
-    void OutProducer() {
-        cout << "Имя:" << this->GetName() << "  Телефон:" << this->GetPhone() << endl;
+    friend ostream& operator<<(ostream& out, Producer producer) {
+        return out << "Имя:" << producer.GetName() << "  Телефон:" << producer.GetPhone() << endl;
     }
     void InProducer();
     static int GetProducer_cntr() { return producer_cntr; }

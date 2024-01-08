@@ -18,28 +18,28 @@
 void class_out(Producer* producers) {
     for (int i = 0; i < producers->GetProducer_cntr(); i++) {
         printf("%-2d|", i + 1);
-        (producers + i)->OutProducer();
+        cout << *(producers + i);
     }
 }
 //ф-я вывода продавца
 void class_out(Seller* sellers, int cntr) {
     for (int i = 0; i < cntr; i++) {
         printf("%-2d|", i + 1);
-        (sellers + i)->OutSeller();
+        cout << *(sellers + i);
     }
 }
 //ф-я вывода покупателя
 void class_out(Buyer* buyers) {
     for (int i = 0; i < buyers->GetBuyer_cntr(); i++) {
         printf("%-2d|", i + 1);
-        (buyers + i)->OutBuyer();
+        cout << *(buyers + i);
     }
 }
 //ф-я вывода товара
 void class_out(Product* products) {
     for (int i = 0; i < products->GetProducts_cntr(); i++) {
         printf("%-2d|", i + 1); 
-        (products+i)->OutProduct();
+        cout << *(products+i);
     }
 }
 //ф-я вывода заказа
@@ -48,7 +48,7 @@ void class_out(Order* orders) {
         puts("Заказы");
         for (int i = 0; i < orders->GetOrders_cntr(); i++) {
             printf("%-2d|", i + 1);
-            (orders + i)->OutOrder();
+            cout << *(orders + i);
         }
 
         int select;
@@ -61,13 +61,13 @@ void class_out(Order* orders) {
                 i = i - 1;
 
                 puts("Товар данного заказа");
-                (orders + i)->OutProduct();
+                cout << (orders + i)->GetProduct();
 
                 puts("Покупатель данного заказа");
-                (orders + i)->OutBuyer();
+                cout << (orders + i)->GetBuyer();
 
                 puts("Продавец данного заказа");
-                (orders + i)->OutSeller();
+                cout << (orders + i)->GetSeller();
             }
         } while (select != 2);
     }
@@ -355,7 +355,7 @@ int main()
                         puts("Заказы");
                         for (int i = 0; i < orders_complete_cntr; i++) {
                             printf("%-2d|", i + 1);
-                            (orders_complete + i)->OutOrder();
+                            cout << *(orders_complete + i);
                         }
 
                         do {
@@ -367,13 +367,13 @@ int main()
                                 i = i - 1;
 
                                 puts("Товар данного заказа");
-                                (orders_complete + i)->OutProduct();
+                                cout << (orders_complete + i)->GetProduct();
 
                                 puts("Покупатель данного заказа");
-                                (orders_complete + i)->OutBuyer();
+                                cout << (orders_complete + i)->GetBuyer();
 
                                 puts("Продавец данного заказа");
-                                (orders_complete + i)->OutSeller();
+                                cout << *((orders_complete + i)->GetSeller());
                             }
                         } while (selection != 2);
                     }
@@ -382,7 +382,7 @@ int main()
                 case 7:           //вывод уволенных продавцов          
                     for (int i = 0; i < sellers_dismissed_cntr; i++) {
                         printf("%-2d|", i + 1);
-                        (sellers_dismissed + i)->OutSeller();
+                        cout << *((sellers_dismissed + i)->GetSeller());
                     }; break;
                 case 8: exit1 = 0; break;
                 }

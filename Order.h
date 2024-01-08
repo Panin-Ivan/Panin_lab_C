@@ -44,10 +44,10 @@ public:
     bool GetStatus() {
         return status;
     }
-    void OutOrder() {
-        cout << "id:" << id << "  Дата:" << date << "  Кол-во:" << quantity << "  Статус:" << status <<endl;
+    friend ostream& operator<<(ostream& out, Order order) {
+        return out << "id:" << order.id << "  Дата:" << order.date << "  Кол-во:" << order.quantity << "  Статус:" << order.status <<endl;
     }
-    void OutBuyer();
+    Buyer GetBuyer();
     void InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers, int sellers_cntr);
     void SetOrder(Order order);
     void Sum() {
