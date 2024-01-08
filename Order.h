@@ -9,7 +9,7 @@
 #include "Buyer.h"
 #include "Product.h"
 
-class Order : public Product, public Buyer, public Seller {
+class Order : public Product, protected Buyer, public Seller {
     friend int Sale(Order* order, int percent) {		//Скидка на заказ
         return (int)((double)(order->GetPrice()) * ((100.0 - (double)percent) / 100.0));
     }
@@ -26,7 +26,7 @@ public:
     void SetDate(std::string date) {
         this->date = date;
     }
-    void SetQuantityOrder(int quantity) {
+    void SetQuantity(int quantity) {
         this->quantity = quantity;
     }
     void SetStatus(bool status) {
@@ -38,7 +38,7 @@ public:
     std::string GetDate() {
         return date;
     }
-    int GetQuantityOrder() {
+    int GetQuantity() {
         return quantity;
     }
     bool GetStatus() {
@@ -47,6 +47,7 @@ public:
     void OutOrder() {
         cout << "id:" << id << "  Дата:" << date << "  Кол-во:" << quantity << "  Статус:" << status <<endl;
     }
+    void OutBuyer();
     void InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sellers, int sellers_cntr);
     void SetOrder(Order order);
     void Sum() {

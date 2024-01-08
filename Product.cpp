@@ -5,6 +5,6 @@ void Product::SetProduct(Product product) {
     this->producer.SetPhone(product.producer.GetPhone());
     this->SetNameProduct(product.GetNameProduct());
     this->SetPrice(product.GetPrice());
-    this->SetQuantityProduct(product.GetQuantityProduct());
+    this->SetQuantity(product.GetQuantity());
 }
 int Product::products_cntr = 0;

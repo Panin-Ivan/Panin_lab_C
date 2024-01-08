@@ -87,7 +87,7 @@ void Product::InProduct(Producer* producers) {
 
     puts("Введите кол-во товара");
     intin(&num, 0, 1000000, "кол-во товара");
-    SetQuantityProduct(num);
+    SetQuantity(num);
 
     int select;
     class_out(producers);
@@ -119,8 +119,8 @@ void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sel
     SetProduct(*(products + select - 1));
 
     puts("Введите кол-во покумаемого товара товара");
-    intin(&num, 1, (products + select - 1)->GetQuantityProduct(), "кол-во товара");
-    SetQuantityOrder(num);
+    intin(&num, 1, (products + select - 1)->GetQuantity(), "кол-во товара");
+    SetQuantity(num);
 
     class_out(buyers);
     puts("Введите номер покупателя");
@@ -231,21 +231,21 @@ int order_complete(Order* orders, Product* products, Order **orders_complete, in
         intin(&num, 1, orders->GetOrders_cntr(), "номер заказа");
     } while ((orders + num - 1)->GetStatus() == true);
 
-    if ((orders + num - 1)->GetQuantityOrder() > (orders + num - 1)->GetQuantityProduct()) {
+    if ((orders + num - 1)->GetQuantity() > (orders + num - 1)->Product::GetQuantity()) {
         puts("Недостаточно товара на складе");
     }
     else {
         (orders + num - 1)->SetStatus(true);
 
-        (orders + num - 1)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct() - (orders + num - 1)->GetQuantityOrder());
+        (orders + num - 1)->Product::SetQuantity((orders + num - 1)->Product::GetQuantity() - (orders + num - 1)->GetQuantity());
         for (int i = 0; i < products->GetProducts_cntr(); i++) {
             if ((products + i)->GetNameProduct() == (orders + num - 1)->GetNameProduct())
-                (products + i)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct());
+                (products + i)->SetQuantity((orders + num - 1)->Product::GetQuantity());
         }
 
         for (int i = 0; i < orders->GetOrders_cntr(); i++) {
             if ((orders + i)->GetNameProduct() == (orders + num - 1)->GetNameProduct())
-                (orders + i)->SetQuantityProduct((orders + num - 1)->GetQuantityProduct());
+                (orders + i)->Product::SetQuantity((orders + num - 1)->Product::GetQuantity());
         }
         
         Order* order_old = new Order[*orders_complete_cntr];
@@ -422,7 +422,7 @@ int main()
             for (int i = 0; i < products->GetProducts_cntr(); i++) {
                 prod = prod + products[i];
             }
-            printf("Кол-во товара:%d\n", prod.GetQuantityProduct());
+            printf("Кол-во товара:%d\n", prod.GetQuantity());
             break;
         case 9: exit = 0; break;
         }

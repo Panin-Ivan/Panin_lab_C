@@ -19,7 +19,7 @@ public:
     void SetPrice(int price) {
         this->price = price;
     }
-    void SetQuantityProduct(int quantity) {
+    void SetQuantity(int quantity) {
         this->quantity = quantity;
     }
     std::string GetNameProduct() {
@@ -28,11 +28,11 @@ public:
     int GetPrice() {
         return price;
     }
-    int GetQuantityProduct() {
+    int GetQuantity() {
         return quantity;
     }
     void OutProduct() {
-        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantityProduct() << "  Производитель:" << this->producer.GetName() << "  Телефон пр-ля:" << this->producer.GetPhone() << endl;
+        cout << "Название:" << GetNameProduct() << "  Цена:" << GetPrice() << "  Кол-во:" << GetQuantity() << "  Производитель:" << this->producer.GetName() << "  Телефон пр-ля:" << this->producer.GetPhone() << endl;
     }
     void InProduct(Producer* producers);
     void SetProduct(Product product);
@@ -41,7 +41,7 @@ public:
     Product GetProduct() { return *this; }
     Product operator + (Product product) {
         Product prod; prod.SetProduct(*this);
-        prod.SetQuantityProduct((this->GetQuantityProduct() + product.GetQuantityProduct()));
+        prod.SetQuantity((this->GetQuantity() + product.GetQuantity()));
         return prod;
     }
     Product operator ++(int) { return *this; quantity++;}       //постфиксный

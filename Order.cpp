@@ -6,7 +6,10 @@ void Order::SetOrder(Order order) {
    SetProduct(order.GetProduct());
    SetId(order.GetId());
    SetDate(order.GetDate());
-   SetQuantityOrder(order.GetQuantityOrder());
+   SetQuantity(order.GetQuantity());
    SetStatus(order.GetStatus());
 }
 int Order::orders_cntr = 0;
+void Order::OutBuyer() {
+	cout << "Имя:" << this->Buyer::GetName() << "  Телефон:" << this->Buyer::GetPhone() << endl;
+}
