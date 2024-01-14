@@ -67,7 +67,7 @@ void class_out(Order* orders) {
                 cout << (orders + i)->GetBuyer();
 
                 puts("Продавец данного заказа");
-                cout << (orders + i)->GetSeller();
+                cout << *((orders + i)->GetSeller());
             }
         } while (select != 2);
     }
@@ -77,6 +77,9 @@ void class_out(Order* orders) {
 void Product::InProduct(Producer* producers) {
     std::string s = "";
     std::string* str = &s ; int num;
+
+    id = products_cntr + 1;
+
     puts("Введите наименование товара");
     stringin(NAMELEN, str, "наименование товара");
     SetNameProduct(*str);
@@ -317,9 +320,9 @@ int main()
     
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Бракованный товар\n10.Выход");
         printf("Выберете дальнейшее действие: ");
-        intin(&selection, 1, 9, "вариант пункта меню");
+        intin(&selection, 1, 10, "вариант пункта меню");
 
         int exit1 = 1, salary_avg = 0;
         switch (selection)
@@ -424,7 +427,25 @@ int main()
             }
             printf("Кол-во товара:%d\n", prod.GetQuantity());
             break;
-        case 9: exit = 0; break;
+        case 9:
+            if (products->GetProducts_cntr()) {
+                class_out(products);
+                cout << "Введите номер продукта:";
+                intin(&selection, 1, products->GetProducts_cntr(), "номер товара");
+                cout << "Введите кол-во бракованного товара:";
+                int qua; Product* pt;
+                intin(&qua, 0, products[selection - 1].GetQuantity(), "кол-во");
+
+                pt = &products[selection - 1];
+                pt->Waste(qua);
+                for (int i = 0; i < orders->GetOrders_cntr(); i++) {
+                    if ((orders[i].Product::GetId() == products[selection - 1].GetId()) && !orders[i].GetStatus()) {
+                        pt = &orders[i]; pt->Waste(qua);
+                    }
+                }
+            }
+            else cout << "Нет товаров" << endl; break;
+        case 10: exit = 0; break;
         }
     } while (exit);
 }

@@ -12,6 +12,7 @@ public:
         name_product = "product_name";
         price = 0;
         quantity = 0;
+        id = 0;
     }
     void SetNameProduct(std::string name) {
         name_product = name;
@@ -31,6 +32,7 @@ public:
     int GetQuantity() {
         return quantity;
     }
+    int GetId() { return id; }
     friend ostream& operator<<(ostream& out, Product product) {
         return out << "Название:" << product.GetNameProduct() << "  Цена:" << product.GetPrice() << "  Кол-во:" << product.GetQuantity() << "  Производитель:" << product.producer.GetName() << "  Телефон пр-ля:" << product.producer.GetPhone() << endl;
     }
@@ -46,11 +48,13 @@ public:
     }
     Product operator ++(int) { return *this; quantity++;}       //постфиксный
     Product& operator ++() { quantity++; return *this; }        //префиксный
+    virtual void Waste(int quantity) { this->quantity = this->quantity - quantity; }
 private:
     Producer producer;
     std::string name_product;     //Наименование товара
     int price;              //Цена товара
     int quantity;           //кол-во товара на складе
     static int products_cntr;
+    int id;
 };
 

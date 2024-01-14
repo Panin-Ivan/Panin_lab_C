@@ -60,6 +60,10 @@ public:
     Order operator= (Product product) { this->SetProduct(product); return *this; }
     Order operator= (Buyer buyer) { this->SetBuyer(buyer);  return *this; }
     Order operator= (Seller seller) { this->SetSeller(seller);  return *this; }
+    void Waste(int quantity){
+        Product::SetQuantity(Product::GetQuantity() - quantity);
+        if (this->quantity > Product::GetQuantity()) { this->quantity = Product::GetQuantity(); }
+    }
 private:
     int id;                 //номер заказа
     std::string date;     //дата заказа
