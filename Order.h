@@ -8,6 +8,7 @@
 #include "Seller.h"
 #include "Buyer.h"
 #include "Product.h"
+#include "Payment.h"
 
 class Order : public Product, protected Buyer, public Seller {
     friend int Sale(Order* order, int percent) {		//Скидка на заказ
@@ -64,10 +65,13 @@ public:
         Product::SetQuantity(Product::GetQuantity() - quantity);
         if (this->quantity > Product::GetQuantity()) { this->quantity = Product::GetQuantity(); }
     }
+    void SetPayment(Payment<string> payment) { this->payment = payment; }
+    Payment<string> GetPayment() { return payment; }
 private:
     int id;                 //номер заказа
     std::string date;     //дата заказа
     int quantity;           //кол-во товара
     bool status;            //статус заказа
     static int orders_cntr;
+    Payment<string> payment;
 };

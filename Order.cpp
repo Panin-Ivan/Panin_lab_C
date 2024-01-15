@@ -8,6 +8,7 @@ void Order::SetOrder(Order order) {
    SetDate(order.GetDate());
    SetQuantity(order.GetQuantity());
    SetStatus(order.GetStatus());
+   SetPayment(order.GetPayment());
 }
 int Order::orders_cntr = 0;
 Buyer Order::GetBuyer() {

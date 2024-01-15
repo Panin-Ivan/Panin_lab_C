@@ -6,6 +6,7 @@
 #define DATELEN 12
 #define MAXCH 200
 
+#include "Payment.h"
 #include "Seller.h"
 #include "Producer.h"
 #include "Buyer.h"
@@ -134,6 +135,12 @@ void Order::InOrder(Order* orders, Product* products, Buyer* buyers, Seller* sel
     puts("Введите номер продавца");
     intin(&select, 1, sellers_cntr, "номер продавца");
     SetSeller(*(sellers + select - 1));
+
+    puts("Введите id аккаунта");
+    stringin(10, str, "id аккаунта");
+    int sum = quantity * this->GetPrice();
+    Payment<string> payment{ *str, sum };
+    SetPayment(payment);
 
     SetStatus(false);
     orders_cntr++;
@@ -344,9 +351,9 @@ int main()
             break;
         case 2:
             do {
-                puts("1.Вывод производителя \n2.Вывод продавца\n3.Вывод покупателя\n4.Вывод товара\n5.Вывод заказа\n6.Вывод выполненных заказов\n7.Вывод уволенных продавцов\n8.Выход к прошлому меню");
+                puts("1.Вывод производителя \n2.Вывод продавца\n3.Вывод покупателя\n4.Вывод товара\n5.Вывод заказа\n6.Вывод выполненных заказов\n7.Вывод уволенных продавцов\n8.Вывод оплаты\n9.Выход к прошлому меню");
                 printf("Выберите дальнейшее действие: ");
-                intin(&selection, 1, 8, "вариант пункта меню");
+                intin(&selection, 1, 9, "вариант пункта меню");
                 switch (selection) {
                 case 1: class_out(producers); break;
                 case 2: class_out(sellers, sellers_cntr); break;
@@ -387,7 +394,12 @@ int main()
                         printf("%-2d|", i + 1);
                         cout << *((sellers_dismissed + i)->GetSeller());
                     }; break;
-                case 8: exit1 = 0; break;
+                case 8:           //вывод оплаты      
+                    for (int i = 0; i < orders->GetOrders_cntr(); i++) {
+                        printf("%-2d|", i + 1);
+                        (orders + i)->GetPayment().print();
+                    }; break;
+                case 9: exit1 = 0; break;
                 }
             } while (exit1);
             break;

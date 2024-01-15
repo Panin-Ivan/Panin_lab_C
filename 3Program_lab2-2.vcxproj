@@ -151,6 +151,7 @@
     <ClInclude Include="Buyer.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="Order.h" />
+    <ClInclude Include="Payment.h" />
     <ClInclude Include="Producer.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="Seller.h" />
