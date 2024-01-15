@@ -1,6 +1,7 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <locale>
 #include <windows.h>
+#include <vector>
 #define NAMELEN 30
 #define PHONELEN 13
 #define DATELEN 12
@@ -324,12 +325,14 @@ int main()
     Order orders[10];
     Order* orders_complete = { new Order }; int orders_complete_cntr = 0;
     Seller* sellers_dismissed = { new Seller }; int sellers_dismissed_cntr = 0;
+
+    vector<Order> v_orders;
     
 
     do {
-        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Бракованный товар\n10.Выход");
+        puts("1.Добавление\n2.Вывод\n3.Сумма заказа\n4.Выполнить заказ\n5.Уволить продавца\n6.Скидка\n7.Средняя зарплата продавцов\n8.Кол-во товара\n9.Бракованный товар\n10.Вектор\n11.Выход");
         printf("Выберете дальнейшее действие: ");
-        intin(&selection, 1, 10, "вариант пункта меню");
+        intin(&selection, 1, 11, "вариант пункта меню");
 
         int exit1 = 1, salary_avg = 0;
         switch (selection)
@@ -457,7 +460,67 @@ int main()
                 }
             }
             else cout << "Нет товаров" << endl; break;
-        case 10: exit = 0; break;
+        case 10:
+            for (int i = 0; i < orders->GetOrders_cntr(); i++) {
+                v_orders.push_back(orders[i]);
+            }
+            do {
+                puts("1.Сортировка по id\n2.Поиск по id\n3.Выход");
+                printf("Выберете дальнейшее действие: ");
+                intin(&selection, 1, 3, "вариант пункта меню");
+
+                int size = v_orders.size(); bool f = true;
+                Order ord;
+                switch (selection)
+                {
+                case 1:
+                    
+                    printf("Сортировать по возрастанию? 1 - да, 2 - нет: ");
+                    intin(&selection, 1, 2, "вариант пункта меню");
+                    if (selection == 1) {                       
+                        for (int i = 0;i<size-1;i++) {
+                            for (int j = 0; j < size -i- 1; j++) {
+                                if (v_orders[j].GetId() > v_orders[j + 1].GetId()) {
+                                    ord = v_orders[j];
+                                    v_orders[j] = v_orders[j + 1];
+                                    v_orders[j + 1] = ord;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {                        
+                        for (int i = 0; i < size - 1; i++) {
+                            for (int j = 0; j < size - i - 1; j++) {
+                                if (v_orders[j].GetId() < v_orders[j + 1].GetId()) {
+                                    ord = v_orders[j];
+                                    v_orders[j] = v_orders[j + 1];
+                                    v_orders[j + 1] = ord;
+                                }
+                            }
+                        }
+                    }
+                    cout << "Результат сортировки" << endl;
+                    for (int i = 0; i<size; i++) {
+                        cout << v_orders[i];
+                    }
+                    break;
+                case 2:
+                    printf("Введите id: ");
+                    intin(&selection, 1, 999999, "id");
+                    for (int i = 0; i<v_orders.size(); i++) {
+                        if (v_orders[i].GetId() == selection) {
+                            cout << "Заказ: " << v_orders[i];
+                            f = false;
+                        }
+                    }
+                    if (f) { cout << "Такого заказа нет\n"; }
+                    break;
+                default: break;
+                }
+            } while(selection!=3);
+            break;
+        case 11: exit = 0; break;
         }
     } while (exit);
 }
